@@ -1,3 +1,4 @@
+import 'package:c2g/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -92,7 +93,7 @@ class LoginScreen extends StatelessWidget {
                   const Text("Not Registered?"),
                   TextButton(
                     onPressed: () {
-                      // TODO: Go to signup page
+                      Navigator.of(context).pushNamed(SignupScreen.routeName);
                     },
                     child: Text("Signup Now"),
                   ),
