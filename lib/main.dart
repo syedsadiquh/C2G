@@ -1,4 +1,5 @@
 import 'package:c2g/screens/login_screen.dart';
+import 'package:c2g/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         LoginScreen.routeName: (context)=>LoginScreen(),
+        SignupScreen.routeName: (context)=>const SignupScreen(),
       },
       home: LoginScreen(),
     );
