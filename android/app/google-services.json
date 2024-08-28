@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "1070970578003",
-    "project_id": "c2g-app-60622",
-    "storage_bucket": "c2g-app-60622.appspot.com"
+    "project_number": "78180907227",
+    "project_id": "c2g-app-87b4a",
+    "storage_bucket": "c2g-app-87b4a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1070970578003:android:a01cf19d02b357fbd352a6",
+        "mobilesdk_app_id": "1:78180907227:android:edab5f8162db4d7ab374fe",
         "android_client_info": {
           "package_name": "com.syedsadiquh.c2g"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDJ1DVYyNvExuVDuw4Pjrlm5AwcmJpj8CU"
+          "current_key": "AIzaSyAEgy_lN0kKN7pW08YopHjT40l10Q369aQ"
         }
       ],
       "services": {

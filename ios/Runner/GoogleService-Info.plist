@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyAyzMm-E5Rufy3Ce6l2jQyhXhbwNzKUE9s</string>
+	<string>AIzaSyDXiBHi1OJGI68Zi43zXNb0YB0AA51hHJs</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1070970578003</string>
+	<string>78180907227</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.syedsadiquh.c2g</string>
 	<key>PROJECT_ID</key>
-	<string>c2g-app-60622</string>
+	<string>c2g-app-87b4a</string>
 	<key>STORAGE_BUCKET</key>
-	<string>c2g-app-60622.appspot.com</string>
+	<string>c2g-app-87b4a.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1070970578003:ios:b321f24cb53872cfd352a6</string>
+	<string>1:78180907227:ios:3056c09978d05e72b374fe</string>
 </dict>
 </plist>
