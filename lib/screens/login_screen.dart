@@ -14,8 +14,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final authService = AuthService();
 
-  bool _emailSts = true;
-  bool _pwsSts = true;
+  bool _emailSts = false;
+  bool _pwsSts = false;
   bool _isLoading = false;
 
   @override
