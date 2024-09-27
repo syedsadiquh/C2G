@@ -1,32 +1,57 @@
 import 'package:c2g/Screens/login_screen.dart';
+import 'package:c2g/src/auth_service.dart';
+import 'package:c2g/src/constants.dart';
 import 'package:flutter/material.dart';
 
-class SignupScreen extends StatelessWidget {
+class SignupScreen extends StatefulWidget {
   static String routeName = '/signup-screen';
   const SignupScreen({super.key});
 
   @override
+  State<SignupScreen> createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
+
+  AuthService authService = AuthService();
+  final _nameTextController = TextEditingController();
+  final _emailTextController = TextEditingController();
+  final _aadhaarTextController = TextEditingController();
+  final _pwdTextController = TextEditingController();
+  final _cpwdTextController = TextEditingController();
+
+  var _nameValidate = false;
+  var _emailValidate = false;
+  var _aadhaarValidate = false;
+  var _pwdValidate = false;
+  var _cpwdValidate = false;
+
+  var _emailErrorString = "Email can't be Empty";
+  var _pwdErrorString = "Password should be between 6 - 18";
+
+  var _isLoading = false;
+
+  @override
   Widget build(BuildContext context) {
-    // TODO: Generate all the TextControllers and use the AuthService Controllers.
     return Scaffold(
       backgroundColor: Colors.white,
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         forceMaterialTransparency: true,
-        backgroundColor: Colors.white,
-        // TODO: Adjust the Icon
+        elevation: 0,
         leading: IconButton(
             onPressed: () {
               Navigator.of(context).pushNamedAndRemoveUntil(
                 LoginScreen.routeName,
-                    (route) => false,
+                (route) => false,
               );
             },
             style: ButtonStyle(
               backgroundColor:
-              WidgetStatePropertyAll(Theme.of(context).primaryColor),
+                  WidgetStatePropertyAll(Theme.of(context).primaryColor),
               foregroundColor: const WidgetStatePropertyAll(Colors.white),
             ),
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
             )),
       ),
@@ -36,7 +61,7 @@ class SignupScreen extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(
-                  height: 10,
+                  height: 50,
                 ),
                 Image.asset(
                   "./lib/assets/images/signup_image.jpg",
@@ -59,11 +84,12 @@ class SignupScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: TextField(
-                    // controller: _emailController,
-                    decoration: const InputDecoration(
+                    controller: _nameTextController,
+                    decoration: InputDecoration(
                       labelText: "Name",
-                      border: OutlineInputBorder(
+                      border: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(12))),
+                      errorText: _nameValidate ? "Name can't be Empty" : null,
                     ),
                   ),
                 ),
@@ -74,11 +100,12 @@ class SignupScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: TextField(
-                    // controller: _emailController,
-                    decoration: const InputDecoration(
+                    controller: _emailTextController,
+                    decoration: InputDecoration(
                       labelText: "Email",
-                      border: OutlineInputBorder(
+                      border: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(12))),
+                      errorText: _emailValidate ? _emailErrorString : null,
                     ),
                   ),
                 ),
@@ -89,11 +116,12 @@ class SignupScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: TextField(
-                    // controller: _emailController,
-                    decoration: const InputDecoration(
-                      labelText: "Aadhaar",
-                      border: OutlineInputBorder(
+                    controller: _aadhaarTextController,
+                    decoration: InputDecoration(
+                      labelText: "Aadhaar Number",
+                      border: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(12))),
+                      errorText: _aadhaarValidate ? "Invalid Aadhaar Number" : null,
                     ),
                   ),
                 ),
@@ -104,11 +132,14 @@ class SignupScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: TextField(
-                    // controller: _emailController,
-                    decoration: const InputDecoration(
+                    controller: _pwdTextController,
+                    obscureText: true,
+                    decoration: InputDecoration(
                       labelText: "Password",
-                      border: OutlineInputBorder(
+                      border: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(12))),
+                      errorText: _pwdValidate ? _pwdErrorString : null,
+
                     ),
                   ),
                 ),
@@ -119,11 +150,13 @@ class SignupScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: TextField(
-                    // controller: _emailController,
-                    decoration: const InputDecoration(
+                    controller: _cpwdTextController,
+                    obscureText: true,
+                    decoration: InputDecoration(
                       labelText: "Confirm Password",
-                      border: OutlineInputBorder(
+                      border: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(12))),
+                      errorText: _cpwdValidate ? "Password doesn't match" : null,
                     ),
                   ),
                 ),
@@ -132,8 +165,52 @@ class SignupScreen extends StatelessWidget {
                 ),
 
                 // Signup Button
-                ElevatedButton(
-                  onPressed: () {}, // TODO: implement the signup functionality
+                _isLoading ? const CircularProgressIndicator() : ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      // Starting the Loading Animation on the Signup button
+                      _isLoading = true;
+                      // Checking for basic checks for the each input field.
+                      _nameValidate = _nameTextController.text.isEmpty;
+                      _emailValidate = !Constants.isEmailValid(_emailTextController.text) || _emailTextController.text.isEmpty;
+                      _aadhaarValidate = !Constants.isAadhaarValid(_aadhaarTextController.text) || _aadhaarTextController.text.isEmpty;
+                      _pwdValidate = !Constants.isPwdValid(_pwdTextController.text);
+                      // Checking the Confirm password only if the password is a valid entry.
+                      if (!_pwdValidate) {
+                        _cpwdValidate = _pwdTextController.text != _cpwdTextController.text;
+                      }
+                      // Updating the email text if user has entered an email but is invalid.
+                      if (_emailValidate && _emailTextController.text.isNotEmpty) {
+                        _emailErrorString = "Invalid Email";
+                      }
+
+                      _isLoading = !(_nameValidate || _emailValidate || _aadhaarValidate || _pwdValidate || _cpwdValidate);
+                    });
+
+                    // TODO: Exclude Password in data for firestore.
+                    var data = {
+                      "name": _nameTextController.text,
+                      "email": _emailTextController.text,
+                      "pwd": _pwdTextController.text,
+                      "aadhaar": _aadhaarTextController.text,
+                    };
+                    authService.signup(context, data).then((value) {
+                      if (value['err'] == 'email') {
+                        setState(() {
+                          _emailErrorString = value['err_text']!;
+                          _emailValidate = value['bool_res']! as bool;
+                          _isLoading = false;
+                        });
+                      }
+                      else if (value['err'] == 'password') {
+                        setState(() {
+                          _pwdErrorString = value['err_text']!;
+                          _pwdValidate = value['bool_res']! as bool;
+                          _isLoading = false;
+                        });
+                      }
+                    });
+                  }, // TODO: implement the signup functionality
                   style: ButtonStyle(
                     backgroundColor: WidgetStatePropertyAll(
                         Theme.of(context).colorScheme.primaryContainer),
@@ -146,7 +223,7 @@ class SignupScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 14),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 14,
                 ),
 
@@ -159,7 +236,7 @@ class SignupScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context).pushNamedAndRemoveUntil(
                           LoginScreen.routeName,
-                              (route) => false,
+                          (route) => false,
                         );
                       },
                       child: Text("Login"),

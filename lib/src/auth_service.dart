@@ -48,12 +48,13 @@ class AuthService {
     return true;
   }
 
-  Future<Map<String, String>> signup(BuildContext context) async {
+  Future<Map<String, String>> signup(
+      BuildContext context, Map<String, String> data) async {
     try {
       await auth
           .createUserWithEmailAndPassword(
-        email: emailTextController.text,
-        password: pwdTextController.text,
+        email: data['email']!,
+        password: data['pwd']!,
       )
           .then((value) async {
         if (context.mounted) {
@@ -62,6 +63,14 @@ class AuthService {
         }
 
         // TODO: Store in Firestore DB
+        firestore
+            .collection('users')
+            .doc(auth.currentUser?.uid)
+            .set(data)
+            .onError((e, _) {
+          print("Unable to upload to User Database");
+          return;
+        });
 
         if (auth.currentUser != null && context.mounted) {
           Navigator.of(context).pushNamedAndRemoveUntil(
@@ -70,7 +79,9 @@ class AuthService {
           );
         }
       });
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e, _) {
+      print(e);
+      // print(_);
       if (e.code == 'weak-password') {
         return <String, String>{
           "err": "password",

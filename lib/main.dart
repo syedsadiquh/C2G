@@ -9,7 +9,7 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    name: 'c2g',
+    name: 'c2g-app',
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());
