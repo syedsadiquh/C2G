@@ -30,11 +30,11 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       routes: {
-        LoginScreen.routeName: (context)=>LoginScreen(),
+        LoginScreen.routeName: (context)=>const LoginScreen(),
         SignupScreen.routeName: (context)=>const SignupScreen(),
         HomeScreen.routeName: (context)=> const HomeScreen(),
       },
-      home: LoginScreen(),
+      home: const LoginScreen(),
     );
   }
 }

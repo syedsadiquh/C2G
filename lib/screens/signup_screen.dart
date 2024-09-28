@@ -17,7 +17,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final _nameTextController = TextEditingController();
   final _emailTextController = TextEditingController();
   final _aadhaarTextController = TextEditingController();
-  final _pwdTextController = TextEditingController();
+  // final _pwdTextController = TextEditingController();
   final _cpwdTextController = TextEditingController();
 
   var _nameValidate = false;
@@ -132,7 +132,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: TextField(
-                    controller: _pwdTextController,
+                    controller: authService.pwdTextController,
                     obscureText: true,
                     decoration: InputDecoration(
                       labelText: "Password",
@@ -174,10 +174,10 @@ class _SignupScreenState extends State<SignupScreen> {
                       _nameValidate = _nameTextController.text.isEmpty;
                       _emailValidate = !Constants.isEmailValid(_emailTextController.text) || _emailTextController.text.isEmpty;
                       _aadhaarValidate = !Constants.isAadhaarValid(_aadhaarTextController.text) || _aadhaarTextController.text.isEmpty;
-                      _pwdValidate = !Constants.isPwdValid(_pwdTextController.text);
+                      _pwdValidate = !Constants.isPwdValid(authService.pwdTextController.text);
                       // Checking the Confirm password only if the password is a valid entry.
                       if (!_pwdValidate) {
-                        _cpwdValidate = _pwdTextController.text != _cpwdTextController.text;
+                        _cpwdValidate = authService.pwdTextController.text != _cpwdTextController.text;
                       }
                       // Updating the email text if user has entered an email but is invalid.
                       if (_emailValidate && _emailTextController.text.isNotEmpty) {
@@ -187,11 +187,9 @@ class _SignupScreenState extends State<SignupScreen> {
                       _isLoading = !(_nameValidate || _emailValidate || _aadhaarValidate || _pwdValidate || _cpwdValidate);
                     });
 
-                    // TODO: Exclude Password in data for firestore.
                     var data = {
                       "name": _nameTextController.text,
                       "email": _emailTextController.text,
-                      "pwd": _pwdTextController.text,
                       "aadhaar": _aadhaarTextController.text,
                     };
                     authService.signup(context, data).then((value) {
@@ -210,7 +208,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         });
                       }
                     });
-                  }, // TODO: implement the signup functionality
+                  },
                   style: ButtonStyle(
                     backgroundColor: WidgetStatePropertyAll(
                         Theme.of(context).colorScheme.primaryContainer),
@@ -239,11 +237,11 @@ class _SignupScreenState extends State<SignupScreen> {
                           (route) => false,
                         );
                       },
-                      child: Text("Login"),
+                      child: const Text("Login"),
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
               ],

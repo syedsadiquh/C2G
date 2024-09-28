@@ -54,7 +54,7 @@ class AuthService {
       await auth
           .createUserWithEmailAndPassword(
         email: data['email']!,
-        password: data['pwd']!,
+        password: pwdTextController.text,
       )
           .then((value) async {
         if (context.mounted) {

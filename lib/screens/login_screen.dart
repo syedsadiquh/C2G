@@ -70,6 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: TextField(
                   controller: authService.pwdTextController,
+                  obscureText: true,
                   decoration: InputDecoration(
                     labelText: "Password",
                     errorText: _pwsSts ? "Password can't be Empty" : null,
