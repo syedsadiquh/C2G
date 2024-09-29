@@ -4,7 +4,7 @@ import 'package:c2g/src/constants.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
-  static String routeName = '/login-screen';
+  static const String routeName = '/login';
   const LoginScreen({super.key});
 
   @override

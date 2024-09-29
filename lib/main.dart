@@ -1,6 +1,7 @@
 import 'package:c2g/screens/home_screen.dart';
 import 'package:c2g/screens/login_screen.dart';
 import 'package:c2g/screens/signup_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -25,16 +26,16 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'C2G',
       theme: ThemeData(
-        // This is the theme of your application.
+        // This is the theme of the application.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       routes: {
-        LoginScreen.routeName: (context)=>const LoginScreen(),
-        SignupScreen.routeName: (context)=>const SignupScreen(),
-        HomeScreen.routeName: (context)=> const HomeScreen(),
+        LoginScreen.routeName: (context) => const LoginScreen(),
+        SignupScreen.routeName: (context) => const SignupScreen(),
+        HomeScreen.routeName: (context) => const HomeScreen(),
       },
-      home: const LoginScreen(),
+      home: FirebaseAuth.instance.currentUser?.uid != null ? const HomeScreen() : const LoginScreen(),
     );
   }
 }
