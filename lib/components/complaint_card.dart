@@ -10,7 +10,7 @@ class ComplaintCard extends StatelessWidget {
       height: 200,
       width: mediaQuery.size.width * 0.9,
       color: Colors.red,
-      // TODO: 
+      // TODO: Complete the Complaint Card Design
       child: const Center(child: Text("Complaint Card")),
     );
   }

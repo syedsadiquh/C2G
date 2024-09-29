@@ -1,4 +1,5 @@
 import 'package:c2g/components/complaint_card.dart';
+import 'package:c2g/screens/new_complaint_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../components/user_drawer.dart';
@@ -14,8 +15,8 @@ class HomeScreen extends StatelessWidget {
           title: const Text(
             "C2G",
             style: TextStyle(
-              fontWeight: FontWeight.bold,
               fontSize: 25,
+              fontWeight: FontWeight.bold,
             ),
           ),
           centerTitle: true,
@@ -38,8 +39,11 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         drawer: const UserDrawer(),
+        // FAB for adding new complaint.
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushNamed(NewComplaintScreen.routeName);
+          },
           child: const Icon(Icons.add),
         ),
         body: Center(

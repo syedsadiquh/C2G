@@ -17,7 +17,6 @@ class _SignupScreenState extends State<SignupScreen> {
   final _nameTextController = TextEditingController();
   final _emailTextController = TextEditingController();
   final _aadhaarTextController = TextEditingController();
-  // final _pwdTextController = TextEditingController();
   final _cpwdTextController = TextEditingController();
 
   var _nameValidate = false;

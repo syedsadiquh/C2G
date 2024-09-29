@@ -1,5 +1,6 @@
 import 'package:c2g/screens/home_screen.dart';
 import 'package:c2g/screens/login_screen.dart';
+import 'package:c2g/screens/new_complaint_screen.dart';
 import 'package:c2g/screens/signup_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         LoginScreen.routeName: (context) => const LoginScreen(),
         SignupScreen.routeName: (context) => const SignupScreen(),
         HomeScreen.routeName: (context) => const HomeScreen(),
+        NewComplaintScreen.routeName: (context) => const NewComplaintScreen(),
       },
       home: FirebaseAuth.instance.currentUser?.uid != null ? const HomeScreen() : const LoginScreen(),
     );
